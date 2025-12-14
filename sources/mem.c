@@ -6,7 +6,7 @@
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 21:55:18 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/13 17:35:19 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/13 21:03:42 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ const
 void	*ft_memchr(const void *vptr, uint8_t byte, size_t length)
 {
 	const size_t	ones = SIZE_MAX / 0xFF;
+	const size_t	high = ones * 0x80;
 	const uint8_t	*ptr = (const uint8_t *) vptr;
 
 	while (length > 0)
