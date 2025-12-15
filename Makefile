@@ -1,7 +1,7 @@
 # Configuration ------------------------------- #
 NAME = main
 VPATH = sources
-SRCS = main.c bit_ops.c
+SRCS = core.c bit_ops.c
 LDLIBS = 
 ASM = $(OBJS:.o=.s)
 

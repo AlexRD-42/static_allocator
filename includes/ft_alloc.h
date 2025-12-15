@@ -6,7 +6,7 @@
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 16:01:57 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/14 12:50:58 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/15 12:05:42 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@
 # include <stdbool.h>
 # include <limits.h>
 
+# ifndef MEMORY_SIZE
+#  define MEMORY_SIZE 65536u
+# endif
+
+# ifndef BLOCK_SIZE
+#  define BLOCK_SIZE __SIZEOF_POINTER__
+# endif
+
+// Enums because the norm does not allow "dynamic" defines >:)
 enum e_sizes
 {
 	WORD_SIZE = sizeof(size_t),
@@ -26,11 +35,10 @@ enum e_sizes
 
 size_t	ft_bsf(size_t word);
 size_t	ft_bsr(size_t word);
-size_t	ft_bsr(size_t word);
+size_t	ft_popcount(size_t word);
 size_t	ft_bitfind(const size_t *word, size_t start, size_t end, bool bit);
 void	ft_bitset(size_t *bitmap, size_t start, size_t end);
 void	ft_bitclr(size_t *bitmap, size_t start, size_t end);
-size_t	ft_popcount(size_t word);
 
 typedef struct s_alloc
 {

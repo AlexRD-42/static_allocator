@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   core.c                                             :+:      :+:    :+:   */
+/*   stack_allocator.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 15:24:01 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/14 15:51:45 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/15 15:21:04 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,22 @@
 #include <stdbool.h>
 #include "ft_alloc.h"
 
-bool	bit_read(size_t word, size_t index)
+t_alloc	init_alloc(void *data, size_t memory_size, size_t block_size)
 {
-	return (word & ((size_t)1 << (WORD_BIT - 1 - index % WORD_BIT)));
-}
+	bool	valid;
+	size_t	meta_size;
+	size_t	*meta_ptr;
 
-size_t	bit_write(size_t word, size_t index, bool bit)
-{
-	size_t	mask;
-
-	mask = (size_t)1 << (WORD_BIT - 1 - (index % WORD_BIT));
-	if (bit)
-		return (word | mask);
-	else
-		return (word & ~mask);
+	valid = (block_size % WORD_SIZE == 0)
+		&& (block_size >= WORD_SIZE)
+		&& (memory_size % (block_size * CHAR_BIT) == 0)
+		&& (memory_size >= 2 * WORD_BIT * block_size);
+	if (valid == false)
+		return ((t_alloc){NULL, NULL, NULL, 0, 0});
+	meta_size = memory_size / (block_size * CHAR_BIT);
+	memory_size -= 2 * meta_size;
+	meta_ptr = (size_t *)data + meta_size;
+	return ((t_alloc){data, meta_ptr, meta_ptr + meta_size, memory_size, block_size});
 }
 
 // For pointers within range, it scans metadata_end until its terminator byte
@@ -62,14 +64,14 @@ void	*ft_alloc(size_t bytes, t_alloc *alloc)
 	size_t			blocks;
 	const size_t	block_count = alloc->memory_size / alloc->block_size;
 
-	if (bytes == 0 || bytes == SIZE_MAX)
-		return (NULL);
 	blocks = ((bytes + (alloc->block_size - 1)) / alloc->block_size);	// Review: Having block_size be dynamic means compiler can't optimize division
+	if (bytes == 0 || bytes >= alloc->memory_size || blocks >= block_count)	// Review: blocks > or >=
+		return (NULL);
 	p1 = ft_bitfind(alloc->metadata, 0, block_count, 0);
-	while (p1 != SIZE_MAX)
+	while (p1 < block_count - blocks)
 	{
 		p2 = ft_bitfind(alloc->metadata, p1, p1 + blocks, 1); // Scans for the first set bit
-		if (p2 - p1 >= blocks)	// Bit delta, when p2 == SIZE_MAX also breaks
+		if (p2 - p1 >= blocks)	// Bit pos delta, when p2 == SIZE_MAX also breaks
 			break ;
 		p1 = ft_bitfind(alloc->metadata, p2, block_count, 0); // Scans for the first unset bit
 	}
