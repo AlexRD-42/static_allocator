@@ -6,12 +6,12 @@
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 21:55:18 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/16 16:16:01 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/17 11:57:24 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include "ft_alloc.h"
+#include <stdint.h>
 
 // To do: optimize
 void	*ft_memchr(const void *vptr, uint8_t byte, size_t length)
