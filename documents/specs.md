@@ -1,4 +1,3 @@
-
 Goal: Make a fast allocator that has:
 - alloc, realloc, calloc and free operations
 - metadata as small as possible
@@ -36,8 +35,6 @@ How to deal with fragmentation?
 // Static write pointer so that allocations run linearly
 // and then only go back if 
 You could have multiple pools that as time goes on, combine 
-
-
 
 // Memory tag: tag the allocation with a specific ID, 
 // so that later you can call free on a group. Or better yet, assign it to a specific pool

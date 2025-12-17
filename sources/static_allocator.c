@@ -6,7 +6,7 @@
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 15:24:01 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/16 16:39:50 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/16 16:56:05 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	ft_free(void *ptr)
 // Size of metadata is 1 bit per memory block
 void	*ft_alloc(size_t bytes)
 {
-	size_t			p1;
-	size_t			p2;
-	size_t			blocks;
+	size_t	p1;
+	size_t	p2;
+	size_t	blocks;
 
 	blocks = ((bytes + (BLOCK_SIZE - 1)) / BLOCK_SIZE);
 	if (bytes == 0 || bytes >= MEMORY_SIZE || blocks > MEMORY_SIZE / BLOCK_SIZE)

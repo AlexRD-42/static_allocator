@@ -6,7 +6,7 @@
 /*   By: adeimlin <adeimlin@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/06 16:01:57 by adeimlin          #+#    #+#             */
-/*   Updated: 2025/12/16 16:39:54 by adeimlin         ###   ########.fr       */
+/*   Updated: 2025/12/16 17:21:54 by adeimlin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ size_t	ft_lzcnt(size_t word);
 size_t	ft_bitfind(const size_t *word, size_t start, size_t end, bool bit);
 void	ft_bitset(size_t *bitmap, size_t start, size_t end, bool bit);
 
+size_t	ft_find_fit(size_t blocks, size_t *metadata, size_t block_count);
+
 typedef struct s_alloc
 {
 	uint8_t *const	data;
@@ -44,9 +46,9 @@ typedef struct s_alloc
 
 typedef struct s_vec
 {
-	void	*start;
-	void	*ptr;
-	void	*end;
+	void *const	start;
+	void		*ptr;
+	void *const	end;
 }	t_vec;
 
 typedef struct s_vec2
